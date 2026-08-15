@@ -1,6 +1,6 @@
 # 基于 Python 的股票市场数据分析与投资组合优化
 
-这是一个为期一个月、按周交付的教学型量化研究项目。当前版本完成 **Part 1：股票数据获取** 的可运行骨架：从 Yahoo Finance、Alpha Vantage 和 Nasdaq Data Link 获取行情，并转换为同一套长表格式。
+这是一个教学型量化研究项目，已经打通 **数据获取 → 数据质量 → 探索性分析 → 约束优化 → 样本外回测 → 研究报告** 的完整流程。Yahoo Finance、Alpha Vantage 和 Nasdaq Data Link 行情会先转换为同一套长表格式，再进入经过测试的分析代码。
 
 > 本项目仅用于研究和教学，不构成投资建议。市场数据受各数据供应商的许可、频率限制和使用条款约束。
 
@@ -25,12 +25,19 @@ python -m pip install -e ".[dev]"
 Copy-Item .env.example .env
 ```
 
+如需在本机启动 JupyterLab，再安装 Notebook 可选依赖：
+
+```powershell
+python -m pip install -e ".[dev,notebook]"
+```
+
 Yahoo Finance 不需要 API key，可先用它验证完整流程：
 
 ```powershell
 market-data list-universe
 market-data fetch --source yahoo --start 2023-01-01 --end 2026-08-14
 market-data validate data/processed/yahoo/prices_2023-01-01_2026-08-14.csv
+market-data run-all data/processed/yahoo/prices_2023-01-01_2026-08-14.csv --output-dir artifacts
 ```
 
 也可以不使用已安装的命令：
@@ -43,6 +50,25 @@ python -m market_portfolio fetch --source yahoo --start 2023-01-01 --end 2026-08
 
 - 统一格式的 CSV：`data/processed/<source>/prices_<start>_<end>.csv`
 - 可追溯的 JSON 清单：记录数据源、股票、时间区间、行数和文件 SHA-256
+- EDA：资产指标、相关矩阵、归一化价格、收益分布、滚动波动率
+- 优化：等权、最小波动、最大 Sharpe 的权重、行业暴露和敏感性结果
+- 回测：样本外收益、净值、换手率、权重历史、风险指标和净值图
+
+生成文件位于 `artifacts/`，该目录被 Git 忽略。可复现 Notebook 位于 [`notebooks/01_full_research.ipynb`](notebooks/01_full_research.ipynb)，已完成的数值结论位于 [`reports/final_report.md`](reports/final_report.md)。
+
+## 方法与历史结果
+
+默认研究设置为：复权收盘价、252 日训练窗、每 21 个交易日再平衡、10 bps 交易成本、long-only、单股最高 25%、单行业最高 45%。协方差矩阵使用 Ledoit–Wolf 收缩；无风险利率使用美国财政部 2026-08-14 的 13 周国库券 coupon-equivalent 3.80%。
+
+2024-01-04 至 2026-08-14 的滚动样本外结果：
+
+| 方法 | 年化收益 | 年化波动 | Sharpe | 最大回撤 |
+| --- | ---: | ---: | ---: | ---: |
+| 等权 | 25.77% | 15.03% | 1.46 | -20.13% |
+| 最小波动 | 20.67% | 11.93% | 1.41 | -13.72% |
+| 最大 Sharpe | 36.25% | 18.40% | 1.76 | -22.35% |
+
+这些是特定历史样本和模型假设下的结果，不是预期回报或未来表现承诺。尤其是最大 Sharpe 对预期收益估计、窗口和交易成本非常敏感。
 
 ## API key 与数据源差异
 
@@ -86,7 +112,6 @@ ruff check .
 - [yfinance](https://github.com/ranaroussi/yfinance)：Yahoo Finance 数据访问
 - [Alpha Vantage Python wrapper](https://github.com/RomelTorres/alpha_vantage)：API 使用方式参考；当前实现直接调用官方 HTTP 端点，以便显式处理限流和错误信息
 - [Nasdaq Data Link Python](https://github.com/Nasdaq/data-link-python)：官方 Python 客户端
-- [PyPortfolioOpt](https://github.com/PyPortfolio/PyPortfolioOpt)：第 3 周投资组合优化阶段使用
+- [PyPortfolioOpt](https://github.com/PyPortfolio/PyPortfolioOpt)：约束优化、协方差收缩和组合绩效计算
 
 详细的一月计划和每周验收标准见 [`ROADMAP.md`](ROADMAP.md)。
-

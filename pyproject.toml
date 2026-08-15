@@ -4,16 +4,20 @@ build-backend = "hatchling.build"
 
 [project]
 name = "market-portfolio-lab"
-version = "0.1.0"
+version = "0.2.0"
 description = "Reproducible stock market data acquisition, analysis, and portfolio optimization"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 dependencies = [
+  "matplotlib>=3.10,<4.0",
+  "numpy>=2.0,<3.0",
   "pandas>=2.2,<3.0",
+  "PyPortfolioOpt>=1.5,<2.0",
   "python-dotenv>=1.0,<2.0",
   "PyYAML>=6.0,<7.0",
   "requests>=2.32,<3.0",
+  "scikit-learn>=1.6,<2.0",
   "yfinance>=1.0,<2.0",
   "nasdaq-data-link>=1.0,<2.0",
 ]
@@ -24,11 +28,9 @@ dev = [
   "pytest-cov>=6.0,<7.0",
   "ruff>=0.11,<1.0",
 ]
-optimization = [
-  "PyPortfolioOpt>=1.5,<2.0",
-  "scikit-learn>=1.6,<2.0",
+notebook = [
+  "jupyterlab>=4.4,<5.0",
 ]
-
 [project.scripts]
 market-data = "market_portfolio.cli:main"
 
@@ -45,4 +47,3 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
-

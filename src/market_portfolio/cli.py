@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 from market_portfolio.config import load_config
 from market_portfolio.pipeline import fetch_market_data, save_dataset
 from market_portfolio.providers.base import MarketDataError
+from market_portfolio.research import DEFAULT_RISK_FREE_RATE, run_full_research
 from market_portfolio.schema import DataValidationError, canonicalize
 
 
@@ -42,6 +43,18 @@ def build_parser() -> argparse.ArgumentParser:
     validate.add_argument("path", type=Path)
 
     subparsers.add_parser("list-universe", help="Print the configured stock universe")
+
+    research = subparsers.add_parser(
+        "run-all", help="Run EDA, optimization, sensitivity analysis, and backtests"
+    )
+    research.add_argument("path", type=Path, help="Canonical market-data CSV")
+    research.add_argument("--output-dir", type=Path, default=Path("artifacts"))
+    research.add_argument("--risk-free-rate", type=float, default=DEFAULT_RISK_FREE_RATE)
+    research.add_argument("--training-window", type=int, default=252)
+    research.add_argument("--rebalance-frequency", type=int, default=21)
+    research.add_argument("--transaction-cost-bps", type=float, default=10.0)
+    research.add_argument("--max-weight", type=float, default=0.25)
+    research.add_argument("--sector-cap", type=float, default=0.45)
     return parser
 
 
@@ -69,6 +82,32 @@ def _execute(args: argparse.Namespace) -> int:
         print(
             f"Valid: {args.path} | rows={len(validated)} | tickers={validated['ticker'].nunique()}"
         )
+        return 0
+
+    if args.command == "run-all":
+        result = run_full_research(
+            data_path=args.path,
+            config=config,
+            output_dir=args.output_dir,
+            risk_free_rate=args.risk_free_rate,
+            training_window=args.training_window,
+            rebalance_frequency=args.rebalance_frequency,
+            transaction_cost_bps=args.transaction_cost_bps,
+            max_weight=args.max_weight,
+            sector_cap=args.sector_cap,
+        )
+        print(
+            f"Research complete: rows={result.quality['rows']} | "
+            f"tickers={result.quality['tickers']} | artifacts={args.output_dir}"
+        )
+        for method, backtest in result.backtests.items():
+            metrics = backtest.metrics
+            print(
+                f"  {method:<15} annual_return={metrics['annual_return']:.2%} "
+                f"volatility={metrics['annual_volatility']:.2%} "
+                f"sharpe={metrics['sharpe']:.2f} "
+                f"max_drawdown={metrics['max_drawdown']:.2%}"
+            )
         return 0
 
     tickers = [ticker.strip().upper() for ticker in (args.tickers or config.tickers)]
