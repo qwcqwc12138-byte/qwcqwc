@@ -1,0 +1,54 @@
+universe:
+  - ticker: AAPL
+    company: Apple
+    sector: Technology
+  - ticker: MSFT
+    company: Microsoft
+    sector: Technology
+  - ticker: NVDA
+    company: Nvidia
+    sector: Technology
+  - ticker: GOOGL
+    company: Alphabet
+    sector: Technology
+  - ticker: META
+    company: Meta Platforms
+    sector: Technology
+  - ticker: JPM
+    company: JPMorgan Chase
+    sector: Financials
+  - ticker: GS
+    company: Goldman Sachs
+    sector: Financials
+  - ticker: BAC
+    company: Bank of America
+    sector: Financials
+  - ticker: V
+    company: Visa
+    sector: Financials
+  - ticker: MA
+    company: Mastercard
+    sector: Financials
+  - ticker: COST
+    company: Costco
+    sector: Consumer
+  - ticker: WMT
+    company: Walmart
+    sector: Consumer
+  - ticker: PG
+    company: Procter & Gamble
+    sector: Consumer
+  - ticker: KO
+    company: Coca-Cola
+    sector: Consumer
+  - ticker: NKE
+    company: Nike
+    sector: Consumer
+
+providers:
+  alpha_vantage:
+    request_delay_seconds: 12.5
+    output_size: full
+  nasdaq_data_link:
+    table_code: SHARADAR/SEP
+
