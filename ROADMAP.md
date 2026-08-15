@@ -1,62 +1,70 @@
-# 一个月推进路线图
+# One-Month Project Roadmap
 
-项目周期：**2026-08-14 至 2026-09-14**。节奏按“每周一个可验收里程碑”推进；每周都保留可运行代码、测试和简短研究记录。
+Project period: **August 15–September 14, 2026**. Work is organized around one reviewable milestone per week. Every milestone retains runnable code, automated tests, and a concise research record.
 
-## 第 1 周：数据获取（08-14 至 08-21）
+## Week 1: Data acquisition (August 15–21)
 
-目标：完成可靠、可重复的数据入口。
+Goal: establish a reliable and reproducible market-data entry point.
 
-- [x] 建立 15 支股票的跨行业股票池
-- [x] 接入 Yahoo Finance、Alpha Vantage、Nasdaq Data Link
-- [x] 统一 OHLCV、复权价、分红与拆股字段
-- [x] API key 使用环境变量，不写入仓库
-- [x] 保存数据清单和 SHA-256，支持复现实验
-- [x] 用本地网络实际拉取 Yahoo 数据，记录缺失率与首末日期
-- [ ] 在有 key/订阅的情况下抽样交叉验证 2 至 3 支股票（等待用户提供账户权限）
+- [x] Define a cross-sector universe of 15 stocks
+- [x] Integrate Yahoo Finance, Alpha Vantage, and Nasdaq Data Link
+- [x] Standardize OHLCV, adjusted prices, dividends, and stock splits
+- [x] Read API keys from environment variables rather than the repository
+- [x] Save a data manifest and SHA-256 hash for reproducibility
+- [x] Fetch live Yahoo Finance data and record missingness and observed date coverage
+- [ ] Cross-check two or three securities with another provider when the required API key or subscription is available
 
-验收：15 支股票的 Yahoo 数据能保存并通过 `market-data validate`；至少抽查 AAPL、JPM、COST。
+Acceptance criterion: Yahoo Finance data for all 15 securities can be saved and passes `market-data validate`; AAPL, JPM, and COST are manually spot-checked.
 
-首次完整验收结果记录在 [`reports/part1_data_quality.md`](reports/part1_data_quality.md)。
+The initial acceptance result is documented in [`reports/part1_data_quality.md`](reports/part1_data_quality.md).
 
-## 第 2 周：探索性分析与数据质量（08-22 至 08-28）
+## Week 2: Exploratory analysis and data quality (August 22–28)
 
-目标：把行情变成可信的研究输入。
+Goal: turn provider data into trustworthy research inputs.
 
-- [x] 计算简单收益率、对数收益率、年化收益率和年化波动率
-- [x] 检查缺失交易日、异常价格、拆股/分红影响和幸存者偏差
-- [x] 绘制归一化价格、收益分布、滚动波动率、相关性热图
-- [x] 形成一个可重跑的 Jupyter notebook 和一份数据质量报告
+- [x] Calculate simple returns, log returns, annualized returns, and annualized volatility
+- [x] Check missing trading days, price anomalies, split and dividend effects, and survivorship bias
+- [x] Plot normalized prices, return distributions, rolling volatility, and a correlation heat map
+- [x] Produce a rerunnable Jupyter notebook and a data-quality report
 
-验收：任何一张图都能从已保存 CSV 重新生成，且分析明确区分普通收盘价与复权收盘价。
+Acceptance criterion: every figure can be regenerated from a saved CSV, and the analysis clearly distinguishes ordinary close from adjusted close.
 
-## 第 3 周：投资组合优化（08-29 至 09-04）
+## Week 3: Portfolio optimization (August 29–September 4)
 
-目标：比较几种具有清晰假设的资产配置方法。
+Goal: compare asset-allocation methods with explicit assumptions.
 
-- [x] 建立等权组合基线
-- [x] 使用 PyPortfolioOpt 实现最小波动和最大 Sharpe 组合
-- [x] 使用 Ledoit-Wolf 协方差收缩降低估计噪声
-- [x] 加入 long-only、单资产上限和行业上限约束
-- [x] 记录无风险利率来源及日期，不把回测结果表述为未来承诺
+- [x] Establish an equal-weight baseline
+- [x] Implement minimum-volatility and maximum-Sharpe portfolios with PyPortfolioOpt
+- [x] Apply Ledoit–Wolf covariance shrinkage to reduce estimation noise
+- [x] Add long-only, single-asset, and sector-exposure constraints
+- [x] Record the risk-free-rate source and date without presenting backtest results as future promises
 
-验收：输出权重、预期收益、波动率、Sharpe，以及约束是否满足。
+Acceptance criterion: report weights, expected return, volatility, Sharpe ratio, and whether every constraint is satisfied.
 
-## 第 4 周：回测、稳健性与交付（09-05 至 09-14）
+## Week 4: Backtesting, robustness, and delivery (September 5–14)
 
-目标：检验方法，而不是只展示一次最优解。
+Goal: test the method rather than display a single optimized solution.
 
-- [x] 用滚动窗口做样本外回测，防止前视偏差
-- [x] 加入再平衡频率和交易成本假设
-- [x] 比较等权、最小波动和最大 Sharpe 的净值、回撤与换手率
-- [x] 做起止日期、窗口长度和约束上限的敏感性分析
-- [x] 完善 README、图表、结论、局限性和复现步骤
+- [x] Run a rolling out-of-sample backtest that prevents look-ahead bias
+- [x] Add rebalancing-frequency and trading-cost assumptions
+- [x] Compare equity curves, drawdowns, and turnover for equal-weight, minimum-volatility, and maximum-Sharpe portfolios
+- [x] Test sensitivity to end date, estimation window, and position caps
+- [x] Complete the README, figures, conclusions, limitations, and reproduction steps
 
-验收：从空环境安装依赖后，可用固定命令重建数据、图表和核心结果。
+Acceptance criterion: after installing dependencies in a clean environment, fixed commands rebuild the data, figures, and core findings.
 
-## GitHub 协作节奏
+## Daily operating rhythm
 
-- 每周建一个 milestone；每个复选项拆成小 issue。
-- 功能在 `codex/<topic>` 分支开发，通过 pull request 合并。
-- PR 必须通过 Ruff 与 pytest；研究结论变化要在 PR 描述中说明。
-- API key、下载数据和临时图表不提交；小型、许可允许的测试夹具可以提交。
-- 每周末打一个带日期的 tag，保留可复现检查点。
+- Run the automated research update at 6:00 PM America/Los_Angeles from August 15 through September 14.
+- Refresh market data, validate the canonical panel, rerun the analysis, and compare results with the previous successful run.
+- Preserve the last successful artifacts if a provider or analysis step fails.
+- Write generated files, reports, chart labels, and source-controlled artifacts in English.
+- Deliver the short user-facing daily progress update in Chinese.
+
+## GitHub collaboration rhythm
+
+- Create one milestone per week and split each checklist item into a focused issue.
+- Develop features on a topic branch and merge through a pull request.
+- Require Ruff and pytest to pass; explain changes to research conclusions in the pull-request description.
+- Never commit API keys, downloaded provider data, or temporary charts. Small, appropriately licensed test fixtures may be committed.
+- Create a dated tag at the end of each week to preserve a reproducible checkpoint.
