@@ -10,4 +10,4 @@ data/processed/**
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 artifacts/
-
+.pnpm-store/
