@@ -20,14 +20,14 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
     openGraph: {
       title: "Market Portfolio Lab",
-      description: "15 stocks. 3 sectors. 31 daily research runs.",
+      description: "15 stocks. 3 sectors. Daily research through September 14, 2026.",
       type: "website",
       images: [{ url: socialImage, width: 1733, height: 909, alt: "Market Portfolio Lab research overview" }],
     },
     twitter: {
       card: "summary_large_image",
       title: "Market Portfolio Lab",
-      description: "15 stocks. 3 sectors. 31 daily research runs.",
+      description: "15 stocks. 3 sectors. Daily research through September 14, 2026.",
       images: [socialImage],
     },
   };

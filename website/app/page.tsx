@@ -23,27 +23,27 @@ const strategies = [
   {
     name: "Equal weight",
     label: "Baseline",
-    returnValue: "25.77%",
-    volatility: "15.03%",
-    sharpe: "1.46",
+    returnValue: "24.60%",
+    volatility: "14.99%",
+    sharpe: "1.388",
     drawdown: "−20.13%",
     width: "66%",
   },
   {
     name: "Minimum volatility",
     label: "Defensive",
-    returnValue: "20.67%",
-    volatility: "11.93%",
-    sharpe: "1.41",
+    returnValue: "19.62%",
+    volatility: "11.92%",
+    sharpe: "1.328",
     drawdown: "−13.72%",
     width: "53%",
   },
   {
     name: "Maximum Sharpe",
     label: "Return-seeking",
-    returnValue: "36.25%",
-    volatility: "18.40%",
-    sharpe: "1.76",
+    returnValue: "34.82%",
+    volatility: "18.30%",
+    sharpe: "1.695",
     drawdown: "−22.35%",
     width: "93%",
   },
@@ -51,11 +51,11 @@ const strategies = [
 
 const maxSharpeWeights = [
   ["NVDA", 25.0],
-  ["KO", 24.15],
-  ["WMT", 20.85],
-  ["JPM", 18.4],
-  ["GOOGL", 9.55],
-  ["META", 2.05],
+  ["KO", 25.0],
+  ["WMT", 20.0],
+  ["JPM", 17.41],
+  ["GOOGL", 8.85],
+  ["META", 3.74],
 ] as const;
 
 const workflow = [
@@ -103,12 +103,12 @@ export default function Home() {
           <aside className="snapshot" aria-label="Research snapshot">
             <div className="snapshot-head">
               <span>Research snapshot</span>
-              <span className="snapshot-date">14 AUG 2026</span>
+              <span className="snapshot-date">08 SEP 2026</span>
             </div>
             <div className="snapshot-hero-stat">
               <span className="metric-label">Verified price records</span>
-              <strong>13,605</strong>
-              <span className="metric-note">907 trading days × 15 stocks</span>
+              <strong>13,845</strong>
+              <span className="metric-note">923 trading days × 15 stocks</span>
             </div>
             <div className="mini-metrics">
               <div><span>Coverage</span><strong>100%</strong></div>
@@ -120,7 +120,7 @@ export default function Home() {
                 <span key={index} style={{ height: `${height}%` }} />
               ))}
             </div>
-            <div className="snapshot-foot"><span>2023-01-03</span><span>2026-08-14</span></div>
+            <div className="snapshot-foot"><span>2023-01-03</span><span>2026-09-08</span></div>
           </aside>
         </div>
       </section>
@@ -140,7 +140,9 @@ export default function Home() {
           <p>
             The project separates data collection from research logic. Yahoo Finance, Alpha
             Vantage, and Nasdaq Data Link all resolve to the same long-form market schema before
-            any statistic is calculated.
+            any statistic is calculated. An independent 300-row spot check matched AAPL, JPM,
+            and COST across Alpha Vantage and Yahoo Finance; 1,198 of 1,200 OHLC values were
+            within 0.01%.
           </p>
         </div>
         <div className="workflow-grid">
@@ -185,7 +187,7 @@ export default function Home() {
         <div className="section-heading-grid">
           <h2>Risk changed with<br />the objective.</h2>
           <p>
-            Rolling tests span January 4, 2024 through August 14, 2026. Each rebalance uses only
+            Rolling tests span January 4, 2024 through September 8, 2026. Each rebalance uses only
             information available at that date, then applies the target portfolio to the next
             holding period.
           </p>
@@ -247,7 +249,7 @@ export default function Home() {
               Every day at 6:00 PM Pacific, the local research task refreshes prices, validates the
               panel, reruns the study, and compares the result with the previous successful run.
             </p>
-            <div className="schedule-pill"><span className="status-dot" /> Scheduled · 31 daily runs</div>
+            <div className="schedule-pill"><span className="status-dot" /> 25 complete · 6 scheduled</div>
           </div>
           <div className="run-card">
             <div className="run-card-head"><span>DAILY_RUN.yaml</span><span>ACTIVE</span></div>
@@ -285,7 +287,7 @@ export default function Home() {
             </details>
             <details>
               <summary>Data licensing <span>04</span></summary>
-              <p>Provider terms, rate limits, entitlements, and independent price verification still apply to every data source.</p>
+              <p>The AAPL, JPM, and COST spot check supports recent unadjusted prices. Provider terms, rate limits, entitlements, and independent verification of adjusted prices and corporate actions still apply.</p>
             </details>
           </div>
         </div>

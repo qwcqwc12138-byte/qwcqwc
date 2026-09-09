@@ -28,7 +28,7 @@ test("server-renders the English research site", async () => {
   assert.match(html, /Evidence over/);
   assert.match(html, /Fifteen companies/);
   assert.match(html, /Maximum Sharpe/);
-  assert.match(html, /31 daily runs/);
+  assert.match(html, /25 complete/);
   assert.match(html, /does not provide investment advice/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
@@ -43,8 +43,11 @@ test("keeps the project facts and social preview wired", async () => {
   for (const ticker of ["AAPL", "MSFT", "NVDA", "GOOGL", "META", "JPM", "GS", "BAC", "V", "MA", "COST", "WMT", "PG", "KO", "NKE"]) {
     assert.match(page, new RegExp(`\\b${ticker}\\b`));
   }
-  assert.match(page, /13,605/);
+  assert.match(page, /13,845/);
+  assert.match(page, /2026-09-08/);
   assert.match(page, /Aug 15–Sep 14, 2026/);
+  assert.match(page, /1,198 of 1,200 OHLC values/);
+  assert.match(page, /AAPL, JPM, and COST/);
   assert.match(layout, /new URL\("\/og\.png", baseUrl\)/);
   assert.doesNotMatch(page + layout, /_sites-preview|codex-preview/);
 });

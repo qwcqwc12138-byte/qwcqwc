@@ -2,6 +2,8 @@
 
 Project period: **August 15–September 14, 2026**. Work is organized around one reviewable milestone per week. Every milestone retains runnable code, automated tests, and a concise research record.
 
+Status as of September 8: **25 of 31 scheduled daily runs completed**. The synchronized research snapshot contains 13,845 validated Yahoo Finance rows through September 8. A 300-row Alpha Vantage spot check for AAPL, JPM, and COST is complete; broader Nasdaq Data Link reconciliation still requires an entitled US-equity table.
+
 ## Week 1: Data acquisition (August 15–21)
 
 Goal: establish a reliable and reproducible market-data entry point.
@@ -12,7 +14,7 @@ Goal: establish a reliable and reproducible market-data entry point.
 - [x] Read API keys from environment variables rather than the repository
 - [x] Save a data manifest and SHA-256 hash for reproducibility
 - [x] Fetch live Yahoo Finance data and record missingness and observed date coverage
-- [ ] Cross-check two or three securities with another provider when the required API key or subscription is available
+- [x] Cross-check AAPL, JPM, and COST against 100 recent Alpha Vantage observations per ticker
 
 Acceptance criterion: Yahoo Finance data for all 15 securities can be saved and passes `market-data validate`; AAPL, JPM, and COST are manually spot-checked.
 
