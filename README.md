@@ -35,15 +35,15 @@ Yahoo Finance does not require an API key, so it is the simplest way to verify t
 
 ```powershell
 market-data list-universe
-market-data fetch --source yahoo --start 2023-01-01 --end 2026-09-08
-market-data validate data/processed/yahoo/prices_2023-01-01_2026-09-08.csv
-market-data run-all data/processed/yahoo/prices_2023-01-01_2026-09-08.csv --output-dir artifacts
+market-data fetch --source yahoo --start 2023-01-01 --end 2026-09-14
+market-data validate data/processed/yahoo/prices_2023-01-01_2026-09-14.csv
+market-data run-all data/processed/yahoo/prices_2023-01-01_2026-09-14.csv --output-dir artifacts
 ```
 
 The package can also be invoked without the installed console command:
 
 ```powershell
-python -m market_portfolio fetch --source yahoo --start 2023-01-01 --end 2026-09-08
+python -m market_portfolio fetch --source yahoo --start 2023-01-01 --end 2026-09-14
 ```
 
 The pipeline produces:
@@ -60,13 +60,15 @@ Generated files are stored under `artifacts/`, which is ignored by Git. The repr
 
 The default study uses adjusted closing prices, a 252-trading-day training window, rebalancing every 21 trading days, a 10 bps trading-cost assumption, long-only positions, a 25% single-stock cap, and a 45% sector cap. Covariance is estimated with Ledoit–Wolf shrinkage. The 3.80% risk-free rate is the U.S. Treasury 13-week bill coupon-equivalent rate published for August 14, 2026.
 
-Latest synchronized rolling out-of-sample results from January 4, 2024 through September 8, 2026:
+The completed one-month study retained all 31 dated research packages from August 15 through September 14, 2026. The final validated Yahoo Finance panel contains 13,905 rows, 15 securities, and 927 trading dates with no missing close or adjusted-close values and no duplicate ticker-date keys.
+
+Final rolling out-of-sample results from January 4, 2024 through September 14, 2026:
 
 | Strategy | Annualized return | Annualized volatility | Sharpe ratio | Maximum drawdown |
 | --- | ---: | ---: | ---: | ---: |
-| Equal weight | 24.60% | 14.99% | 1.388 | -20.13% |
-| Minimum volatility | 19.62% | 11.92% | 1.328 | -13.72% |
-| Maximum Sharpe | 34.82% | 18.30% | 1.695 | -22.35% |
+| Equal weight | 24.69% | 14.95% | 1.397 | -20.13% |
+| Minimum volatility | 19.54% | 11.90% | 1.323 | -13.72% |
+| Maximum Sharpe | 34.53% | 18.27% | 1.682 | -22.35% |
 
 These figures describe one historical sample under specific model assumptions. They are not expected returns or promises of future performance. The maximum-Sharpe strategy is particularly sensitive to expected-return estimates, window selection, and trading costs.
 
@@ -82,8 +84,8 @@ NASDAQ_DATA_LINK_API_KEY=your_key
 Then run:
 
 ```powershell
-market-data fetch --source alpha-vantage --start 2026-05-01 --end 2026-09-08
-market-data fetch --source nasdaq-data-link --start 2023-01-01 --end 2026-09-08
+market-data fetch --source alpha-vantage --start 2026-05-01 --end 2026-09-14
+market-data fetch --source nasdaq-data-link --start 2023-01-01 --end 2026-09-14
 ```
 
 - **Yahoo Finance:** the project uses the open-source `yfinance` package. It is not an official Yahoo SDK. It is appropriate for research and education, subject to the applicable data terms.
@@ -116,4 +118,4 @@ Unit tests do not access the internet or consume provider quotas. GitHub Actions
 - [Nasdaq Data Link Python](https://github.com/Nasdaq/data-link-python): official Python client
 - [PyPortfolioOpt](https://github.com/PyPortfolio/PyPortfolioOpt): constrained optimization, covariance shrinkage, and portfolio performance calculations
 
-The latest detailed comparison is generated under `artifacts/daily/2026-09-08/summary.md`; generated research artifacts remain outside Git. See [`ROADMAP.md`](ROADMAP.md) for the one-month plan and weekly acceptance criteria. All repository artifacts are maintained in English. The daily Codex progress message is delivered in Chinese for the user.
+The final detailed comparison is generated under `artifacts/daily/2026-09-14/summary.md`; generated research artifacts remain outside Git. See [`ROADMAP.md`](ROADMAP.md) for the completed one-month plan and acceptance criteria. All repository artifacts are maintained in English. Daily Codex progress messages were delivered in Chinese for the user.

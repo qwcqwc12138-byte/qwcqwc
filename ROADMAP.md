@@ -2,7 +2,7 @@
 
 Project period: **August 15–September 14, 2026**. Work is organized around one reviewable milestone per week. Every milestone retains runnable code, automated tests, and a concise research record.
 
-Status as of September 8: **25 of 31 scheduled daily runs completed**. The synchronized research snapshot contains 13,845 validated Yahoo Finance rows through September 8. A 300-row Alpha Vantage spot check for AAPL, JPM, and COST is complete; broader Nasdaq Data Link reconciliation still requires an entitled US-equity table.
+Final status as of September 14: **31 of 31 scheduled daily runs completed**. The closing research snapshot contains 13,905 validated Yahoo Finance rows across 927 trading dates, with zero missing close values and zero duplicate ticker-date keys. A 300-row Alpha Vantage spot check for AAPL, JPM, and COST is complete; broader Nasdaq Data Link reconciliation still requires an entitled US-equity table.
 
 ## Week 1: Data acquisition (August 15–21)
 
@@ -57,11 +57,13 @@ Acceptance criterion: after installing dependencies in a clean environment, fixe
 
 ## Daily operating rhythm
 
-- Run the automated research update at 6:00 PM America/Los_Angeles from August 15 through September 14.
-- Refresh market data, validate the canonical panel, rerun the analysis, and compare results with the previous successful run.
-- Preserve the last successful artifacts if a provider or analysis step fails.
-- Write generated files, reports, chart labels, and source-controlled artifacts in English.
-- Deliver the short user-facing daily progress update in Chinese.
+- [x] Retain one dated research package for every calendar day from August 15 through September 14
+- [x] Refresh market data, validate the canonical panel, rerun the analysis, and compare each result with the previous successful run
+- [x] Preserve the last successful artifacts when a provider or analysis step fails
+- [x] Write generated files, reports, chart labels, and source-controlled artifacts in English
+- [x] Deliver short user-facing progress updates in Chinese
+
+The scheduled automation ended after the September 14 closing package. Weekend packages correctly retain the latest available trading session while recording provider revisions and rerunning the same research workflow.
 
 ## GitHub collaboration rhythm
 

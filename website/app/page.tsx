@@ -23,27 +23,27 @@ const strategies = [
   {
     name: "Equal weight",
     label: "Baseline",
-    returnValue: "24.60%",
-    volatility: "14.99%",
-    sharpe: "1.388",
+    returnValue: "24.69%",
+    volatility: "14.95%",
+    sharpe: "1.397",
     drawdown: "−20.13%",
     width: "66%",
   },
   {
     name: "Minimum volatility",
     label: "Defensive",
-    returnValue: "19.62%",
-    volatility: "11.92%",
-    sharpe: "1.328",
+    returnValue: "19.54%",
+    volatility: "11.90%",
+    sharpe: "1.323",
     drawdown: "−13.72%",
     width: "53%",
   },
   {
     name: "Maximum Sharpe",
     label: "Return-seeking",
-    returnValue: "34.82%",
-    volatility: "18.30%",
-    sharpe: "1.695",
+    returnValue: "34.53%",
+    volatility: "18.27%",
+    sharpe: "1.682",
     drawdown: "−22.35%",
     width: "93%",
   },
@@ -53,9 +53,9 @@ const maxSharpeWeights = [
   ["NVDA", 25.0],
   ["KO", 25.0],
   ["WMT", 20.0],
-  ["JPM", 17.41],
-  ["GOOGL", 8.85],
-  ["META", 3.74],
+  ["JPM", 15.63],
+  ["GOOGL", 8.82],
+  ["META", 5.55],
 ] as const;
 
 const workflow = [
@@ -85,7 +85,7 @@ export default function Home() {
       </header>
 
       <section className="hero shell" id="top">
-        <div className="eyebrow"><span className="status-dot" /> Live research window · Aug 15–Sep 14, 2026</div>
+        <div className="eyebrow"><span className="status-dot" /> Completed research window · Aug 15–Sep 14, 2026</div>
         <div className="hero-grid">
           <div className="hero-copy">
             <p className="kicker">Python market research / v0.2</p>
@@ -103,12 +103,12 @@ export default function Home() {
           <aside className="snapshot" aria-label="Research snapshot">
             <div className="snapshot-head">
               <span>Research snapshot</span>
-              <span className="snapshot-date">08 SEP 2026</span>
+              <span className="snapshot-date">14 SEP 2026</span>
             </div>
             <div className="snapshot-hero-stat">
               <span className="metric-label">Verified price records</span>
-              <strong>13,845</strong>
-              <span className="metric-note">923 trading days × 15 stocks</span>
+              <strong>13,905</strong>
+              <span className="metric-note">927 trading days × 15 stocks</span>
             </div>
             <div className="mini-metrics">
               <div><span>Coverage</span><strong>100%</strong></div>
@@ -120,7 +120,7 @@ export default function Home() {
                 <span key={index} style={{ height: `${height}%` }} />
               ))}
             </div>
-            <div className="snapshot-foot"><span>2023-01-03</span><span>2026-09-08</span></div>
+            <div className="snapshot-foot"><span>2023-01-03</span><span>2026-09-14</span></div>
           </aside>
         </div>
       </section>
@@ -187,7 +187,7 @@ export default function Home() {
         <div className="section-heading-grid">
           <h2>Risk changed with<br />the objective.</h2>
           <p>
-            Rolling tests span January 4, 2024 through September 8, 2026. Each rebalance uses only
+            Rolling tests span January 4, 2024 through September 14, 2026. Each rebalance uses only
             information available at that date, then applies the target portfolio to the next
             holding period.
           </p>
@@ -246,21 +246,22 @@ export default function Home() {
             <div className="section-label light">04 / One-month research window</div>
             <h2>Fresh data.<br /><em>Same discipline.</em></h2>
             <p className="daily-lede">
-              Every day at 6:00 PM Pacific, the local research task refreshes prices, validates the
-              panel, reruns the study, and compares the result with the previous successful run.
+              The completed daily sequence refreshed prices, validated the panel, reran the study,
+              and compared every result with the previous successful run. Weekend packages retained
+              the most recent market session while preserving the same audit trail.
             </p>
-            <div className="schedule-pill"><span className="status-dot" /> 25 complete · 6 scheduled</div>
+            <div className="schedule-pill"><span className="status-dot" /> 31 complete · Project closed</div>
           </div>
           <div className="run-card">
-            <div className="run-card-head"><span>DAILY_RUN.yaml</span><span>ACTIVE</span></div>
+            <div className="run-card-head"><span>DAILY_RUN.yaml</span><span>COMPLETE</span></div>
             {[
               ["18:00", "Refresh market data"],
               ["18:04", "Validate schema + coverage"],
               ["18:06", "Optimize + backtest"],
               ["18:10", "Compare + publish summary"],
-            ].map(([time, task], index) => (
+            ].map(([time, task]) => (
               <div className="run-step" key={task}>
-                <span>{time}</span><i className={index === 0 ? "active-step" : ""} /><strong>{task}</strong>
+                <span>{time}</span><i className="active-step" /><strong>{task}</strong>
               </div>
             ))}
             <div className="run-window"><span>START</span><strong>15 AUG 2026</strong><span>END</span><strong>14 SEP 2026</strong></div>

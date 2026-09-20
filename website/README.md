@@ -13,9 +13,9 @@ portfolio-optimization research repository.
 - rolling out-of-sample backtests and documented research limitations; and
 - the August 15–September 14, 2026 daily research window.
 
-The published snapshot is synchronized through September 8, 2026: 25 daily runs
-are complete, the validated Yahoo Finance panel contains 13,845 rows, and the
-latest observed trading date is September 8.
+The completed snapshot is synchronized through September 14, 2026: all 31 daily
+runs are complete, the validated Yahoo Finance panel contains 13,905 rows across
+927 trading dates, and the latest observed trading date is September 14.
 
 The independent provider check matched all 300 Alpha Vantage observations to
 Yahoo Finance trading dates. Of 1,200 compared OHLC values, 1,198 were within
